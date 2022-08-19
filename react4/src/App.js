@@ -8,6 +8,8 @@ import Detail from "./pages/Detail/Detail";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
+import ToDoList from "./pages/ToDoList/ToDoList";
+import ToDoListRFC from "./pages/ToDoList/ToDoListRFC";
 
 function App() {
   return (
@@ -21,6 +23,8 @@ function App() {
         <Route exact path='/detail/:id' component={Detail}></Route>
         <Route exact path='/' component={Home}></Route>
         <Route exact path='/profile' component={Profile}></Route>
+        <Route exact path='/todolistrfc' component={ToDoListRFC}></Route>
+        <Route exact path='/todolistrcc' component={ToDoList}></Route>
         <Route path='*' component={PageNotFound}></Route>
       </Switch>
     </BrowserRouter>
