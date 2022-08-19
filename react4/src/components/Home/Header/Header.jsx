@@ -103,6 +103,14 @@ export default function Header() {
                 >
                   ToDoListRFC
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={{ fontWeight: "bold" }}
+                  className="nav-link text-dark"
+                  to="/todolistredux"
+                >
+                  ToDoListRedux
+                </NavLink>
               </div>
             </li>
           </ul>
