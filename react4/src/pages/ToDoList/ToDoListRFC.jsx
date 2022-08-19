@@ -2,17 +2,15 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 
 export default function ToDoListRFC() {
-  let [state, setState] = useState([
-    {
-      taskList: [],
-      values: {
-        taskName: "",
-      },
-      errors: {
-        taskName: "",
-      },
+  let [state, setState] = useState({
+    taskList: [],
+    values: {
+      taskName: "",
     },
-  ]);
+    errors: {
+      taskName: "",
+    },
+  });
 
   const getTaskList = () => {
     let promise = Axios({
@@ -107,7 +105,7 @@ export default function ToDoListRFC() {
     });
     promise.then((result) => {
       console.log(result.data);
-      this.getTaskList();
+      getTaskList();
     });
     promise.catch((err) => {
       console.log(err.response.data);
@@ -121,7 +119,7 @@ export default function ToDoListRFC() {
       method: "PUT",
     });
     promise.then((result) => {
-      this.getTaskList();
+      getTaskList();
     });
     promise.catch((errors) => {
       console.log(errors.response.data);
@@ -137,7 +135,7 @@ export default function ToDoListRFC() {
     });
     promise.then((result) => {
       console.log(result.data);
-      this.getTaskList();
+      getTaskList();
     });
     promise.catch((errors) => {
       console.log(errors.response.data);
@@ -146,6 +144,28 @@ export default function ToDoListRFC() {
   };
 
   console.log(state);
+
+  const addTask = (e) => {
+    e.preventDefault(); // Dừng sự kiện submit
+    console.log(state.values.taskName);
+    let promise = Axios({
+      url: "http://svcy.myclass.vn/api/ToDoList/AddTask",
+      method: "POST",
+      data: { taskName: state.values.taskName },
+    });
+    // Xử lý thành công
+    promise.then((result) => {
+      //   console.log(result.data);
+      //   alert(result.data);
+      getTaskList();
+    });
+
+    promise.catch((err) => {
+      console.log(err.response.data);
+      alert(err.response.data);
+    });
+  };
+
   const handleChange = (e) => {
     let { value, name } = e.target;
     console.log(value, name);
@@ -170,10 +190,6 @@ export default function ToDoListRFC() {
     });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-  };
-
   useEffect(() => {
     getTaskList();
     return () => {};
@@ -182,10 +198,10 @@ export default function ToDoListRFC() {
   return (
     <div className="card">
       <div className="card__header">
-        <img src={require("./bg.png")} alt=''/>
+        <img src={require("./bg.png")} alt="" />
       </div>
       {/* <h2>hello!</h2> */}
-      <form className="card__body">
+      <form className="card__body" onSubmit={addTask}>
         <div className="card__content">
           <div className="card__title">
             <h2>My Tasks</h2>
@@ -199,7 +215,7 @@ export default function ToDoListRFC() {
               onChange={handleChange}
               placeholder="Enter an activity..."
             />
-            <button id="addItem">
+            <button id="addItem" type="submit" onClick={addTask}>
               <i className="fa fa-plus" />
             </button>
           </div>
