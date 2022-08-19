@@ -41,12 +41,23 @@ export default class ToDoList extends Component {
           <li key={index}>
             <span>{item.taskName}</span>
             <div className="buttons">
-              <button className="remove">
+              <button
+                className="remove"
+                type="button"
+                onClick={() => {
+                  this.delTask(item.taskName);
+                }}
+              >
                 <i className="fa fa-trash-alt" />
               </button>
-              <button className="complete">
+              <button
+                className="complete"
+                type="button"
+                onClick={() => {
+                  this.doneTask(item.taskName);
+                }}
+              >
                 <i className="far fa-check-circle" />
-                <i className="fas fa-check-circle" />
               </button>
             </div>
           </li>
@@ -62,17 +73,74 @@ export default class ToDoList extends Component {
           <li key={index}>
             <span>{item.taskName}</span>
             <div className="buttons">
-              <button className="remove">
+              <button
+                className="remove"
+                type="button"
+                onClick={() => {
+                  this.delTask(item.taskName);
+                }}
+              >
                 <i className="fa fa-trash-alt" />
               </button>
-              <button className="complete">
-                <i className="far fa-check-circle" />
+              <button
+                className="complete"
+                type="button"
+                onClick={() => {
+                  this.rejectTask(item.taskName);
+                }}
+              >
                 <i className="fas fa-check-circle" />
               </button>
             </div>
           </li>
         );
       });
+  };
+
+  //   Hàm xử lý xoá task
+  delTask = (taskName) => {
+    let promise = Axios({
+      url: `http://svcy.myclass.vn/api/ToDoList/deleteTask?taskName=${taskName}`,
+      method: "DELETE",
+    });
+    promise.then((result) => {
+      console.log(result.data);
+      this.getTaskList();
+    });
+    promise.catch((err) => {
+      console.log(err.response.data);
+    });
+  };
+
+  //   Hàm xử lý done task
+  doneTask = (taskName) => {
+    let promise = Axios({
+      url: `http://svcy.myclass.vn/api/ToDoList/doneTask?taskName=${taskName}`,
+      method: "PUT",
+    });
+    promise.then((result) => {
+      this.getTaskList();
+    });
+    promise.catch((errors) => {
+      console.log(errors.response.data);
+      alert(errors.response.data);
+    });
+  };
+
+  //   Hàm xử lý reject task
+  rejectTask = (taskName) => {
+    let promise = Axios({
+      url: `http://svcy.myclass.vn/api/ToDoList/rejectTask?taskName=${taskName}`,
+      method: "PUT",
+    });
+    promise.then((result) => {
+      console.log(result.data);
+      this.getTaskList();
+    });
+    promise.catch((errors) => {
+      console.log(errors.response.data);
+      alert(errors.response.data);
+    });
   };
 
   //   Hàm sẽ tự động thực thi sau khi nội dung component được render
@@ -114,8 +182,8 @@ export default class ToDoList extends Component {
     });
     // Xử lý thành công
     promise.then((result) => {
-    //   console.log(result.data);
-    //   alert(result.data);
+      //   console.log(result.data);
+      //   alert(result.data);
       this.getTaskList();
     });
 
