@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
-import { getTaskAction } from "../../redux/actions/ToDoListAction";
+import {
+  addTaskApi,
+  delTaskApi,
+  doneTaskApi,
+  getTaskListApi,
+  rejectTaskApi,
+} from "../../redux/actions/ToDoListAction";
 
 export default function ToDoListRedux(props) {
-  const { taskList } = useSelector((state) => state.ToDoListRedux);
+  const { taskList } = useSelector((state) => state.ToDoListReducer);
   let dispatch = useDispatch();
 
   let [state, setState] = useState({
@@ -17,21 +23,7 @@ export default function ToDoListRedux(props) {
   });
 
   const getTaskList = () => {
-    let promise = Axios({
-      url: "http://svcy.myclass.vn/api/ToDoList/GetAllTask",
-      method: "GET",
-    });
-    promise.then((result) => {
-      console.log("result", result.data);
-      //   Nếu gọi API lấy về kết quả thành công
-      // => set lại state của component
-      dispatch(getTaskAction(result.data));
-      console.log("thành công");
-    });
-    promise.catch((err) => {
-      console.log("thất bại");
-      console.log("err", err.response.data);
-    });
+    dispatch(getTaskListApi());
   };
 
   const renderTaskToDo = () => {
@@ -100,71 +92,25 @@ export default function ToDoListRedux(props) {
 
   //   Hàm xử lý xoá task
   const delTask = (taskName) => {
-    let promise = Axios({
-      url: `http://svcy.myclass.vn/api/ToDoList/deleteTask?taskName=${taskName}`,
-      method: "DELETE",
-    });
-    promise.then((result) => {
-      console.log(result.data);
-      getTaskList();
-    });
-    promise.catch((err) => {
-      console.log(err.response.data);
-    });
+    dispatch(delTaskApi(taskName));
   };
 
   //   Hàm xử lý done task
   const doneTask = (taskName) => {
-    let promise = Axios({
-      url: `http://svcy.myclass.vn/api/ToDoList/doneTask?taskName=${taskName}`,
-      method: "PUT",
-    });
-    promise.then((result) => {
-      getTaskList();
-    });
-    promise.catch((errors) => {
-      console.log(errors.response.data);
-      alert(errors.response.data);
-    });
+    dispatch(doneTaskApi(taskName));
   };
 
   //   Hàm xử lý reject task
   const rejectTask = (taskName) => {
-    let promise = Axios({
-      url: `http://svcy.myclass.vn/api/ToDoList/rejectTask?taskName=${taskName}`,
-      method: "PUT",
-    });
-    promise.then((result) => {
-      console.log(result.data);
-      getTaskList();
-    });
-    promise.catch((errors) => {
-      console.log(errors.response.data);
-      alert(errors.response.data);
-    });
+    dispatch(rejectTaskApi(taskName));
   };
-
-  console.log(state);
 
   const addTask = (e) => {
     e.preventDefault(); // Dừng sự kiện submit
     console.log(state.values.taskName);
-    let promise = Axios({
-      url: "http://svcy.myclass.vn/api/ToDoList/AddTask",
-      method: "POST",
-      data: { taskName: state.values.taskName },
-    });
-    // Xử lý thành công
-    promise.then((result) => {
-      //   console.log(result.data);
-      //   alert(result.data);
-      getTaskList();
-    });
 
-    promise.catch((err) => {
-      console.log(err.response.data);
-      alert(err.response.data);
-    });
+    // Xử lý nhận dữ liệu từ người đăng nhập => gọi action addTaskApi()
+    dispatch(addTaskApi(state.values.taskName));
   };
 
   const handleChange = (e) => {
