@@ -18,7 +18,22 @@ export default function ToDoListSaga() {
     },
   });
 
-  const getTaskList = () => {};
+  const getTaskList = () => {
+    // Dispatch action saga
+    dispatch({
+      type: "getTaskApiAction",
+      data: 'abc'
+    });
+  };
+
+  useEffect(()=> {
+    // Gọi hàm getTaskList
+    getTaskList();
+
+    return () => {
+
+    }
+  },[])
 
   const renderTaskToDo = () => {
     return taskList
