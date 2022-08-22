@@ -111,6 +111,14 @@ export default function Header() {
                 >
                   ToDoListRedux
                 </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={{ fontWeight: "bold" }}
+                  className="nav-link text-dark"
+                  to="/todolistsaga"
+                >
+                  ToDoListSaga
+                </NavLink>
               </div>
             </li>
           </ul>
