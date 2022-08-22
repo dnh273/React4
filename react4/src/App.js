@@ -3,8 +3,10 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom'
 import LoadingComponent from "./components/GlobalSetting/LoadingComponent/LoadingComponent";
 import Header from "./components/Home/Header/Header";
 import Profile from "./components/Profile/Profile";
+import Modal from "./HOC/Modal/Modal";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
+import DemoHOCModal from "./pages/DemoHOCModal/DemoHOCModal";
 import Detail from "./pages/Detail/Detail";
 import Home from "./pages/Home/Home";
 import Login from "./pages/Login/Login";
@@ -18,6 +20,7 @@ function App() {
   return (
     <BrowserRouter>
       <Header></Header>
+      <Modal></Modal>
       <LoadingComponent></LoadingComponent>
       <Switch>
         <Route exact path='/home' component={Home}></Route>
@@ -31,6 +34,7 @@ function App() {
         <Route exact path='/todolistrcc' component={ToDoList}></Route>
         <Route exact path='/todolistredux' component={ToDoListRedux}></Route>
         <Route exact path='/todolistsaga' component={ToDoListSaga}></Route>
+        <Route exact path='/demohocmodal' component={DemoHOCModal}></Route>
         <Route path='*' component={PageNotFound}></Route>
       </Switch>
     </BrowserRouter>

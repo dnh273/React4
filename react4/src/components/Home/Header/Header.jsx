@@ -84,7 +84,7 @@ export default function Header() {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Dropdown
+                Ex
               </a>
               <div className="dropdown-menu" aria-labelledby="dropdownId">
                 <NavLink
@@ -118,6 +118,14 @@ export default function Header() {
                   to="/todolistsaga"
                 >
                   ToDoListSaga
+                </NavLink>
+                <NavLink
+                  activeClassName="activeNavItem"
+                  activeStyle={{ fontWeight: "bold" }}
+                  className="nav-link text-dark"
+                  to="/demohocmodal"
+                >
+                  Demo HOC Modal
                 </NavLink>
               </div>
             </li>
