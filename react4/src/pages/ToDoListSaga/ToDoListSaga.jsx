@@ -2,6 +2,10 @@ import React, { useEffect, useState } from "react";
 import Axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
+import {
+  ADD_TASK_API,
+  GET_TASKLIST_API,
+} from "../../redux/constants/ToDoListConstant";
 
 export default function ToDoListSaga() {
   const dispatch = useDispatch();
@@ -21,19 +25,17 @@ export default function ToDoListSaga() {
   const getTaskList = () => {
     // Dispatch action saga
     dispatch({
-      type: "getTaskApiAction",
-      data: 'abc'
+      type: GET_TASKLIST_API,
+      data: "abc",
     });
   };
 
-  useEffect(()=> {
+  useEffect(() => {
     // Gọi hàm getTaskList
     getTaskList();
 
-    return () => {
-
-    }
-  },[])
+    return () => {};
+  }, []);
 
   const renderTaskToDo = () => {
     return taskList
@@ -112,6 +114,10 @@ export default function ToDoListSaga() {
 
   const addTask = (e) => {
     e.preventDefault(); // Dừng sự kiện submit
+    dispatch({
+      type: ADD_TASK_API,
+      taskName: state.values.taskName
+    });
   };
 
   const handleChange = (e) => {

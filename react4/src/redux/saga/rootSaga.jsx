@@ -7,5 +7,6 @@ export function* rootSage() {
     // Nghiệp vụ theo dõi các action saga todolist
     ToDoListSaga.theoDoiActionGetTaskApi(),
     // Nghiệp vụ ....
+    ToDoListSaga.theodoiActionAddTaskApi(),
   ]);
 }
