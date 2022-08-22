@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Axios from "axios";
 
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function ToDoListSaga() {
   const dispatch = useDispatch();
+
+  const { taskList } = useSelector((state) => state.ToDoListReducer);
 
   let [state, setState] = useState({
     taskList: [],
@@ -19,7 +21,7 @@ export default function ToDoListSaga() {
   const getTaskList = () => {};
 
   const renderTaskToDo = () => {
-    return state.taskList
+    return taskList
       .filter((item) => !item.status)
       .map((item, index) => {
         return (
@@ -51,7 +53,7 @@ export default function ToDoListSaga() {
   };
 
   const renderTaskDone = () => {
-    return state.taskList
+    return taskList
       .filter((item) => item.status)
       .map((item, index) => {
         return (
@@ -131,7 +133,7 @@ export default function ToDoListSaga() {
       <button
         onClick={() => {
           dispatch({
-            type: "getTaskApi",
+            type: "getTaskApiAction",
           });
         }}
         className="btn btn-success"
