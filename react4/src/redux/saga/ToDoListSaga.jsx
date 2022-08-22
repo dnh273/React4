@@ -6,8 +6,11 @@ import Axios from "axios";
 import { call, delay, put, takeLatest } from "redux-saga/effects";
 import {
   ADD_TASK_API,
+  DEL_TASK_API,
+  DONE_TASK_API,
   GET_TASKLIST_API,
   GET_TASK_API,
+  REJECT_TASK_API,
 } from "../constants/ToDoListConstant";
 import { toDoListService } from "../../services/ToDoListSevice";
 import { STATUS_CODE } from "../../util/constants/settingSystem";
@@ -74,4 +77,71 @@ function* addTaskApiAction(action) {
 
 export function* theodoiActionAddTaskApi() {
   yield takeLatest(ADD_TASK_API, addTaskApiAction);
+}
+
+function* delTaskApiAction(action) {
+  // Gọi API
+  const { taskName } = action;
+  try {
+    const { data, status } = yield call(() => {
+      return toDoListService.delTaskApi(taskName);
+    });
+    if (status === STATUS_CODE.SUCCESS) {
+      //  Nếu thành công thì gọi lại action GET_TASKLIST_API
+      // (action sage thực thi)
+      yield put({
+        type: GET_TASKLIST_API,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+export function* theodoiActionDelTaskApi() {
+  yield takeLatest(DEL_TASK_API, delTaskApiAction);
+}
+function* doneTaskApiAction(action) {
+  // Gọi API
+  const { taskName } = action;
+  try {
+    const { data, status } = yield call(() => {
+      return toDoListService.doneTaskApi(taskName);
+    });
+    if (status === STATUS_CODE.SUCCESS) {
+      //  Nếu thành công thì gọi lại action GET_TASKLIST_API
+      // (action sage thực thi)
+      yield put({
+        type: GET_TASKLIST_API,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+export function* theodoiActionDoneTaskApi() {
+  yield takeLatest(DONE_TASK_API, doneTaskApiAction);
+}
+function* rejectTaskApiAction(action) {
+  // Gọi API
+
+  const { taskName } = action;
+  console.log(action);
+  try {
+    const { data, status } = yield call(() => {
+      return toDoListService.rejectTaskApi(taskName);
+    });
+    if (status === STATUS_CODE.SUCCESS) {
+      //  Nếu thành công thì gọi lại action GET_TASKLIST_API
+      // (action sage thực thi)
+      yield put({
+        type: REJECT_TASK_API,
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+export function* theodoiActionRejectTaskApi() {
+  yield takeLatest(REJECT_TASK_API, rejectTaskApiAction);
 }

@@ -4,7 +4,10 @@ import Axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import {
   ADD_TASK_API,
+  DEL_TASK_API,
+  DONE_TASK_API,
   GET_TASKLIST_API,
+  REJECT_TASK_API,
 } from "../../redux/constants/ToDoListConstant";
 
 export default function ToDoListSaga() {
@@ -21,14 +24,6 @@ export default function ToDoListSaga() {
       taskName: "",
     },
   });
-
-  const getTaskList = () => {
-    // Dispatch action saga
-    dispatch({
-      type: GET_TASKLIST_API,
-      data: "abc",
-    });
-  };
 
   useEffect(() => {
     // Gọi hàm getTaskList
@@ -101,24 +96,46 @@ export default function ToDoListSaga() {
       });
   };
 
-  //   Hàm xử lý xoá task
-  const delTask = (taskName) => {};
-
-  //   Hàm xử lý done task
-  const doneTask = (taskName) => {};
-
-  //   Hàm xử lý reject task
-  const rejectTask = (taskName) => {};
-
-  console.log(state);
+  const getTaskList = () => {
+    // Dispatch action saga
+    dispatch({
+      type: GET_TASKLIST_API,
+      data: "abc",
+    });
+  };
 
   const addTask = (e) => {
     e.preventDefault(); // Dừng sự kiện submit
     dispatch({
       type: ADD_TASK_API,
-      taskName: state.values.taskName
+      taskName: state.values.taskName,
     });
   };
+  //   Hàm xử lý xoá task
+  const delTask = (taskName) => {
+    dispatch({
+      type: DEL_TASK_API,
+      taskName: taskName,
+    });
+  };
+
+  //   Hàm xử lý done task
+  const doneTask = (taskName) => {
+    dispatch({
+      type: DONE_TASK_API,
+      taskName: taskName,
+    });
+  };
+
+  //   Hàm xử lý reject task
+  const rejectTask = (taskName) => {
+    dispatch({
+      type: REJECT_TASK_API,
+      taskName: taskName,
+    });
+  };
+
+  console.log(state);
 
   const handleChange = (e) => {
     let { value, name } = e.target;

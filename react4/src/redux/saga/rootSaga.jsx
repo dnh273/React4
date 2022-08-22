@@ -1,6 +1,6 @@
 import { all, call } from "redux-saga/effects";
 import * as ToDoListSaga from "./ToDoListSaga";
-import { theoDoiActionGetTaskApi } from "./ToDoListSaga";
+// import { theoDoiActionGetTaskApi } from "./ToDoListSaga";
 
 export function* rootSage() {
   yield all([
@@ -8,5 +8,9 @@ export function* rootSage() {
     ToDoListSaga.theoDoiActionGetTaskApi(),
     // Nghiệp vụ ....
     ToDoListSaga.theodoiActionAddTaskApi(),
+    // Nghiệp vụ .
+    ToDoListSaga.theodoiActionDelTaskApi(),
+    ToDoListSaga.theodoiActionDoneTaskApi(),
+    ToDoListSaga.theodoiActionRejectTaskApi(),
   ]);
 }
