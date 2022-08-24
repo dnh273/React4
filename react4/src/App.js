@@ -6,6 +6,7 @@ import Profile from "./components/Profile/Profile";
 import Modal from "./HOC/Modal/Modal";
 import About from "./pages/About/About";
 import Contact from "./pages/Contact/Contact";
+import LoginCyberBugs from "./pages/CyberBugs/LoginCyberBugs/LoginCyberBugs";
 import DemoHOCModal from "./pages/DemoHOCModal/DemoHOCModal";
 import Detail from "./pages/Detail/Detail";
 import Home from "./pages/Home/Home";
@@ -16,6 +17,7 @@ import ToDoListRedux from "./pages/ToDoList/ToDoListRedux";
 import ToDoListRFC from "./pages/ToDoList/ToDoListRFC";
 import ToDoListSaga from "./pages/ToDoListSaga/ToDoListSaga";
 import { HomeTemplate } from "./templates/HomeTemplate/HomeTemplate";
+import { UserLoginTemplate } from "./templates/HomeTemplate/UserLoginTemplate";
 
 function App() {
   return (
@@ -31,10 +33,10 @@ function App() {
         }}></Route> */}
 
         <HomeTemplate path='/home' exact Component={Home}></HomeTemplate>
-       
+
         <HomeTemplate exact path='/about' Component={About}></HomeTemplate>
         <HomeTemplate exact path='/contact' Component={Contact}></HomeTemplate>
-        <HomeTemplate exact path='/login' Component={Login}></HomeTemplate>
+        <UserLoginTemplate exact path='/login' Component={LoginCyberBugs}></UserLoginTemplate>
         <HomeTemplate exact path='/detail/:id' Component={Detail}></HomeTemplate>
         <HomeTemplate exact path='/' Component={Home}></HomeTemplate>
         <HomeTemplate exact path='/profile' Component={Profile}></HomeTemplate>
